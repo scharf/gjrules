@@ -15,8 +15,4 @@ public class ExprOr extends AbstractBinaryExpr {
         return left.test() || right.test();
     }
 
-    @Override
-    public String toString() {
-        return "(" + left + " or " + right + ")";
-    }
 }
