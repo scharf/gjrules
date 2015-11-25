@@ -31,7 +31,8 @@ public class ParserMain {
         ExpressionParser parser = new ExpressionParser();
         try {
             IExpression expr = parser.parseVQL(expression);
-            System.out.println(expr + " -> " + expr.eval(store));
+            expr.setStore(store);
+            System.out.println(expr + " -> " + expr.eval());
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -7,6 +7,7 @@ import gr.scharf.rules.expression.ExpressionException;
 public class ExprVariable extends AbstractExpr {
 
     private final String name;
+    private StateStore   store;
 
     public ExprVariable(IToken token, String name) {
         super(token);
@@ -14,10 +15,9 @@ public class ExprVariable extends AbstractExpr {
     }
 
     @Override
-    public Object eval(StateStore store) throws ExpressionException {
+    public Object eval() throws ExpressionException {
         try {
             return store.getValue(name);
-
         } catch (Exception e) {
             throw new ExpressionException(token, e.getLocalizedMessage());
         }
@@ -26,5 +26,11 @@ public class ExprVariable extends AbstractExpr {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public void setStore(StateStore store) throws ExpressionException {
+        this.store = store;
+        store.getValue(name);
     }
 }

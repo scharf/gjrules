@@ -15,8 +15,14 @@ public class ExprNegate extends AbstractExpr {
     }
 
     @Override
-    public Object eval(StateStore store) throws ExpressionException {
-        return !toBoolean(inner.eval(store));
+    public Object eval() throws ExpressionException {
+        return !toBoolean(inner.eval());
+    }
+
+    @Override
+    public void setStore(StateStore store) throws ExpressionException {
+        inner.setStore(store);
+        super.setStore(store);
     }
 
     @Override

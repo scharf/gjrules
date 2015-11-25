@@ -13,8 +13,8 @@ public abstract class AbstractExpr implements IExpression {
     }
 
     @Override
-    public boolean test(StateStore store) throws ExpressionException {
-        return toBoolean(eval(store));
+    public boolean test() throws ExpressionException {
+        return toBoolean(eval());
     }
 
     protected boolean toBoolean(Object result) throws ExpressionException {
@@ -22,6 +22,11 @@ public abstract class AbstractExpr implements IExpression {
             return ((Boolean) result).booleanValue();
         }
         throw new ExpressionException(token, "value is not boolen but " + result.getClass().getSimpleName());
+    }
+
+    @Override
+    public void setStore(StateStore store) throws ExpressionException {
+
     }
 
     @Override
