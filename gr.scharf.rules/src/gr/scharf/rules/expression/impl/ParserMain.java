@@ -15,8 +15,12 @@ public class ParserMain {
         parse("not f");
         parse("f or f");
         parse("f or t");
+        parse("t and dontknow");
         parse("f and t");
         parse("f and t or false");
+        parse("t and print(42)");
+        parse("t = 6");
+        parse("t then");
     }
 
     private static void parse(String expression) {

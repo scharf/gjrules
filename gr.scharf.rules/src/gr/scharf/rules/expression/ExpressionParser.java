@@ -7,6 +7,7 @@ public class ExpressionParser extends ExprParser<IExpression, ExpressionExceptio
 
     public ExpressionParser() {
         super(new ExpressionBuilder(), true);
+
     }
 
 }

@@ -15,7 +15,12 @@ public class ExprVariable extends AbstractExpr {
 
     @Override
     public Object eval(StateStore store) throws ExpressionException {
-        return store.getValue(name);
+        try {
+            return store.getValue(name);
+
+        } catch (Exception e) {
+            throw new ExpressionException(token, e.getLocalizedMessage());
+        }
     }
 
     @Override

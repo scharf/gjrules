@@ -15,7 +15,7 @@ public class ExpressionBuilder extends AbstractExpressionBuilder<IExpression, Ex
     @Override
     public IExpression buildFunction(IToken token, IExpression self, String function, Object... args)
             throws ExpressionException {
-        switch (function) {
+        switch (function.toLowerCase()) {
         case "__not__":
             return new ExprNegate(token, (IExpression) args[0]);
         case "__or__":
