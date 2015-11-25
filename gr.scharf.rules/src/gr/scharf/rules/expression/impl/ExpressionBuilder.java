@@ -34,6 +34,13 @@ public class ExpressionBuilder extends AbstractExpressionBuilder<IExpression, Ex
         case "__<<__":
         case "__>>__":
             return new ExprInfixOperator(token, (IExpression) args[0], (IExpression) args[1]);
+        case "__<__":
+        case "__<=__":
+        case "__==__":
+        case "__!=__":
+        case "__>__":
+        case "__>=__":
+            return new ExprCompare(token, (IExpression) args[0], (IExpression) args[1]);
         }
         throw new ExpressionException(token, function);
     }

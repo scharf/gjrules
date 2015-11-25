@@ -22,6 +22,12 @@ public class ParserMain {
         parse("t = 6");
         parse("t then");
         parse("1 + 2 * 3 / 4 % 5 ^ 6 | 7 & 8 >> 9 << 10 mod 12");
+        parse("1 > 2");
+        parse("1 >= 2");
+        parse("2 ==  2");
+        parse("1 != 2");
+        parse("1 <= 2");
+        parse("1 < 2");
     }
 
     private static void parse(String expression) {
