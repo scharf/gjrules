@@ -18,6 +18,14 @@ public class ExprLiteral extends AbstractExpr {
 
     @Override
     public String toString() {
+        if (value instanceof String) {
+            String result = (String) value;
+            result = result.replaceAll("(\"|\\\\)", "\\\\$1");
+            result = result.replaceAll("\t", "\\t");
+            result = result.replaceAll("n", "\\n");
+            return "\"" + result + "\"";
+        }
+
         return "" + value;
     }
 }

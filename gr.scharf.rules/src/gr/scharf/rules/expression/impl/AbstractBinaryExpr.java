@@ -24,7 +24,7 @@ public abstract class AbstractBinaryExpr extends AbstractExpr {
     }
 
     @Override
-    final public String toString() {
+    public String toString() {
         return "(" + left + " " + token.getString() + " " + right + ")";
     }
 

@@ -17,7 +17,7 @@ public class ExpressionBuilder extends AbstractExpressionBuilder<IExpression, Ex
             throws ExpressionException {
         switch (function.toLowerCase()) {
         case "__not__":
-            return new ExprNegate(token, (IExpression) args[0]);
+            return new ExprNot(token, (IExpression) args[0]);
         case "__or__":
             return new ExprOr(token, (IExpression) args[0], (IExpression) args[1]);
         case "__and__":
@@ -41,6 +41,8 @@ public class ExpressionBuilder extends AbstractExpressionBuilder<IExpression, Ex
         case "__>__":
         case "__>=__":
             return new ExprCompare(token, (IExpression) args[0], (IExpression) args[1]);
+        case "matches":
+            return new ExprMatches(token, self, (IExpression) args[0]);
         }
         throw new ExpressionException(token, function);
     }

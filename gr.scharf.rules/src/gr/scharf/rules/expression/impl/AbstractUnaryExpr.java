@@ -5,28 +5,18 @@ import gr.scharf.rules.StateStore;
 import gr.scharf.rules.expression.ExpressionException;
 import gr.scharf.rules.expression.IExpression;
 
-public class ExprNegate extends AbstractExpr {
+public abstract class AbstractUnaryExpr extends AbstractExpr {
 
-    private IExpression inner;
+    protected final IExpression inner;
 
-    public ExprNegate(IToken token, IExpression inner) {
+    public AbstractUnaryExpr(IToken token, IExpression inner) {
         super(token);
         this.inner = inner;
-    }
-
-    @Override
-    public Object eval() throws ExpressionException {
-        return !toBoolean(inner.eval());
     }
 
     @Override
     public void setStore(StateStore store) throws ExpressionException {
         inner.setStore(store);
         super.setStore(store);
-    }
-
-    @Override
-    public String toString() {
-        return "(- " + inner + ")";
     }
 }
