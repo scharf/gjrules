@@ -1,6 +1,7 @@
-package gr.scharf.rules.parser;
+package gr.scharf.rules.expression.impl;
 
 import gr.scharf.expr.parser.lexer.IToken;
+import gr.scharf.rules.StateStore;
 
 public class ExprLiteral extends AbstractExpr {
 
@@ -12,8 +13,12 @@ public class ExprLiteral extends AbstractExpr {
     }
 
     @Override
-    public Object eval() {
+    public Object eval(StateStore store) {
         return value;
     }
 
+    @Override
+    public String toString() {
+        return "" + value;
+    }
 }

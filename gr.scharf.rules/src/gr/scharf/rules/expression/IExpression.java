@@ -3,8 +3,7 @@ package gr.scharf.rules.expression;
 import gr.scharf.rules.StateStore;
 
 public interface IExpression {
-    Object eval() throws ExpressionException;
+    Object eval(StateStore store) throws ExpressionException;
 
-    void setStore(StateStore store);
-
+    boolean test(StateStore store) throws ExpressionException;
 }

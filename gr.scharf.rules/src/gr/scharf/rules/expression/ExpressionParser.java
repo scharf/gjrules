@@ -1,8 +1,7 @@
-package gr.scharf.rules.parser;
+package gr.scharf.rules.expression;
 
 import gr.scharf.expr.parser.builder.ExprParser;
-import gr.scharf.rules.expression.ExpressionException;
-import gr.scharf.rules.expression.IExpression;
+import gr.scharf.rules.expression.impl.ExpressionBuilder;
 
 public class ExpressionParser extends ExprParser<IExpression, ExpressionException> {
 

@@ -1,4 +1,4 @@
-package gr.scharf.rules.parser;
+package gr.scharf.rules.expression.impl;
 
 import gr.scharf.expr.parser.builder.AbstractExpressionBuilder;
 import gr.scharf.expr.parser.lexer.IToken;
@@ -15,6 +15,14 @@ public class ExpressionBuilder extends AbstractExpressionBuilder<IExpression, Ex
     @Override
     public IExpression buildFunction(IToken token, IExpression self, String function, Object... args)
             throws ExpressionException {
+        switch (function) {
+        case "__not__":
+            return new ExprNegate(token, (IExpression) args[0]);
+        case "__or__":
+            return new ExprOr(token, (IExpression) args[0], (IExpression) args[1]);
+        case "__and__":
+            return new ExprAnd(token, (IExpression) args[0], (IExpression) args[1]);
+        }
         throw new ExpressionException(token, function);
     }
 

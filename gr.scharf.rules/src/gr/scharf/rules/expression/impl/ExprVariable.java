@@ -1,4 +1,4 @@
-package gr.scharf.rules.parser;
+package gr.scharf.rules.expression.impl;
 
 import gr.scharf.expr.parser.lexer.IToken;
 import gr.scharf.rules.StateStore;
@@ -6,7 +6,6 @@ import gr.scharf.rules.expression.ExpressionException;
 
 public class ExprVariable extends AbstractExpr {
 
-    private StateStore   store;
     private final String name;
 
     public ExprVariable(IToken token, String name) {
@@ -15,13 +14,12 @@ public class ExprVariable extends AbstractExpr {
     }
 
     @Override
-    public Object eval() throws ExpressionException {
+    public Object eval(StateStore store) throws ExpressionException {
         return store.getValue(name);
     }
 
     @Override
-    public void setStore(StateStore store) {
-        this.store = store;
+    public String toString() {
+        return name;
     }
-
 }
