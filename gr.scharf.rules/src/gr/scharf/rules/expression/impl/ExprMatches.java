@@ -17,16 +17,18 @@ public class ExprMatches extends AbstractBinaryExpr {
     public Object eval() throws ExpressionException {
         Object self = left.eval();
         if (!(self instanceof String)) {
-            throw new ExpressionException(token, "this is not a String but a " + self.getClass().getSimpleName());
+            throw left.newExpressionException(
+                "this is not a String but a " + (self == null ? null : self.getClass().getSimpleName()));
         }
         Object regex = right.eval();
         if (!(self instanceof String)) {
-            throw new ExpressionException(token, "regex is not a String but a " + regex.getClass().getSimpleName());
+            throw right.newExpressionException(
+                "regex is not a String but a " + (regex == null ? null : regex.getClass().getSimpleName()));
         }
         try {
             return ((String) self).matches((String) regex);
         } catch (PatternSyntaxException e) {
-            throw new ExpressionException(token, e.getLocalizedMessage());
+            throw newExpressionException(e.getLocalizedMessage());
         }
     }
 

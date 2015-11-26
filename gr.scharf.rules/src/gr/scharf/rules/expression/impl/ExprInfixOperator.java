@@ -58,11 +58,16 @@ class ExprInfixOperator extends AbstractBinaryExpr {
     public Object eval() throws ExpressionException {
         Object leftObject = left.eval();
         Object rightObject = right.eval();
+        if (operation == OP.PLUS) {
+
+        }
         if (!(leftObject instanceof Number)) {
-            throw new ExpressionException(token, "'" + token.getString() + "' requires Number as leftObject operand!");
+            throw left
+                    .newExpressionException("'" + token.getString() + "' requires Number as leftObject operand!");
         }
         if (!(rightObject instanceof Number)) {
-            throw new ExpressionException(token, "'" + token.getString() + "' requires Number as RightObject operand!");
+            throw right
+                    .newExpressionException("'" + token.getString() + "' requires Number as RightObject operand!");
         }
         if (leftObject instanceof Double || rightObject instanceof Double) {
             return evalDouble(((Number) leftObject).doubleValue(), ((Number) rightObject).doubleValue());
@@ -107,7 +112,7 @@ class ExprInfixOperator extends AbstractBinaryExpr {
             result = left | right;
             break;
         default:
-            throw new ExpressionException(token, "unsupported operand!");
+            throw newExpressionException( "unsupported operand!");
         }
         // System.out.println(this+"="+result);
         return new Long(result);
@@ -132,7 +137,7 @@ class ExprInfixOperator extends AbstractBinaryExpr {
             result = left % right;
             break;
         default:
-            throw new ExpressionException(token, "unsupported operand!");
+            throw newExpressionException( "unsupported operand!");
         }
         // System.out.println(this+"="+result);
         return new Double(result);
@@ -141,7 +146,7 @@ class ExprInfixOperator extends AbstractBinaryExpr {
     @Override
     public void setStore(StateStore store) throws ExpressionException {
         if (operation == OP.UNKNOWN) {
-            throw new ExpressionException(token, "Unknown operator: " + token.getString());
+            throw newExpressionException( "Unknown operator: " + token.getString());
         }
         super.setStore(store);
     }

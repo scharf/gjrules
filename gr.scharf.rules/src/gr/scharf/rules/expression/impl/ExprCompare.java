@@ -41,51 +41,51 @@ class ExprCompare extends AbstractBinaryExpr {
 
     @Override
     public Object eval() throws ExpressionException {
-        Object left = this.left.eval();
-        Object right = this.right.eval();
-        if (left instanceof Number && right instanceof Number && left.getClass() != right.getClass()) {
-            if (left instanceof Double) {
-                right = new Double(((Number) right).doubleValue());
-            } else if (right instanceof Double) {
-                left = new Double(((Number) left).doubleValue());
+        Object leftObj = left.eval();
+        Object rightObj = right.eval();
+        if (leftObj instanceof Number && rightObj instanceof Number && leftObj.getClass() != rightObj.getClass()) {
+            if (leftObj instanceof Double) {
+                rightObj = new Double(((Number) rightObj).doubleValue());
+            } else if (rightObj instanceof Double) {
+                leftObj = new Double(((Number) leftObj).doubleValue());
             } else {
-                left = new Long(((Number) left).longValue());
-                right = new Long(((Number) right).longValue());
+                leftObj = new Long(((Number) leftObj).longValue());
+                rightObj = new Long(((Number) rightObj).longValue());
             }
         }
         switch (operation) {
         case EQ: {
-            if (left == null || right == null)
-                return left == right;
+            if (leftObj == null || rightObj == null)
+                return leftObj == rightObj;
             else
-                return left.equals(right);
+                return leftObj.equals(rightObj);
         }
         case NE: {
-            if (left == null || right == null)
-                return left != right;
+            if (leftObj == null || rightObj == null)
+                return leftObj != rightObj;
             else
-                return !left.equals(right);
+                return !leftObj.equals(rightObj);
         }
         default:
             break;
         }
-        if (left == null) {
-            throw new ExpressionException(token, "left operand is null");
+        if (leftObj == null) {
+            throw left.newExpressionException("left operand is null");
         }
-        if (right == null) {
-            throw new ExpressionException(token, "right operand is null");
+        if (rightObj == null) {
+            throw right.newExpressionException("right operand is null");
         }
-        if (!(left instanceof Comparable)) {
-            throw new ExpressionException(token, "left operand is not comparable");
+        if (!(leftObj instanceof Comparable)) {
+            throw left.newExpressionException("left operand is not comparable");
         }
-        if (!(right instanceof Comparable)) {
-            throw new ExpressionException(token, "right operand is not comparable");
+        if (!(rightObj instanceof Comparable)) {
+            throw right.newExpressionException("right operand is not comparable");
         }
         int cmp = -1;
         try {
-            cmp = compareTo(left, right);
+            cmp = compareTo(leftObj, rightObj);
         } catch (Throwable t) {
-            throw new ExpressionException(token, "" + t);
+            throw newExpressionException( "" + t);
         }
         switch (operation) {
         case LT:
@@ -97,7 +97,7 @@ class ExprCompare extends AbstractBinaryExpr {
         case GT:
             return cmp > 0;
         default:
-            throw new ExpressionException(token, "operator '" + token.getString() + "' not supported");
+            throw newExpressionException( "operator '" + token.getString() + "' not supported");
         }
     }
 
@@ -109,7 +109,7 @@ class ExprCompare extends AbstractBinaryExpr {
     @Override
     public void setStore(StateStore store) throws ExpressionException {
         if (operation == COMP_OP.UNKNOWN) {
-            throw new ExpressionException(token, "Unknown operator: " + token.getString());
+            throw newExpressionException( "Unknown operator: " + token.getString());
         }
         super.setStore(store);
     }

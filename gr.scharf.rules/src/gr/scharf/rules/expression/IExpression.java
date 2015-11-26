@@ -13,4 +13,6 @@ public interface IExpression {
     boolean test() throws ExpressionException;
 
     void setStore(StateStore store) throws ExpressionException;
+
+    ExpressionException newExpressionException(String msg);
 }

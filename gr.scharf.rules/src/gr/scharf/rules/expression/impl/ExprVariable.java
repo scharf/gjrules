@@ -19,7 +19,7 @@ public class ExprVariable extends AbstractExpr {
         try {
             return store.getValue(name);
         } catch (Exception e) {
-            throw new ExpressionException(token, e.getLocalizedMessage());
+            throw newExpressionException( e.getLocalizedMessage());
         }
     }
 
@@ -31,6 +31,10 @@ public class ExprVariable extends AbstractExpr {
     @Override
     public void setStore(StateStore store) throws ExpressionException {
         this.store = store;
-        store.getValue(name);
+        try {
+            store.getValue(name);
+        } catch (Exception e) {
+            throw newExpressionException( e.getLocalizedMessage());
+        }
     }
 }

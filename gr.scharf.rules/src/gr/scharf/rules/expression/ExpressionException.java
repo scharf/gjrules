@@ -6,7 +6,7 @@ import gr.scharf.expr.parser.lexer.IToken;
 public class ExpressionException extends Exception {
 
     public ExpressionException(IToken token, String msg) {
-        super(token.getFormattedErrorMessage(msg));
+        super(token.getFormattedErrorMessage(msg), token.getSourceException());
     }
 
 }

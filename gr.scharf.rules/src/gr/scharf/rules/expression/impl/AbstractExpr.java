@@ -21,12 +21,18 @@ public abstract class AbstractExpr implements IExpression {
         if (result instanceof Boolean) {
             return ((Boolean) result).booleanValue();
         }
-        throw new ExpressionException(token, "value is not boolen but " + result.getClass().getSimpleName());
+        throw newExpressionException(
+            "value is not boolen but " + (result == null ? null : result.getClass().getSimpleName()));
     }
 
     @Override
     public void setStore(StateStore store) throws ExpressionException {
 
+    }
+
+    @Override
+    public ExpressionException newExpressionException(String msg) {
+        return new ExpressionException(token, msg);
     }
 
     @Override

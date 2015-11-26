@@ -43,6 +43,7 @@ public class RuleMain {
         ruleEngine.defineState("Background", new State("blue"));
         ruleEngine.defineState("style", new State("male"));
         ruleEngine.defineState("counter", new State(1));
+        ruleEngine.defineState("n", new State(null));
         System.out.println("");
         ruleEngine.addRule(new Rule("SVNR==44", new SetValueExpression("SVNR", "42")));
         ruleEngine.addRule(new Rule("SVNR==43", new SetValueExpression("SVNR", "44")));
@@ -52,7 +53,7 @@ public class RuleMain {
         ruleEngine.addRule(new Rule("SVNR>=44", new SetValueExpression("SVNR", "100")));
         ruleEngine.addRule(new Rule("Background == 'red'", new SetValueExpression("style", "'female'")));
         ruleEngine.addRule(new Rule("counter<5 and SVNR>43", new SetValueExpression("counter", "counter+1")));
-        ruleEngine.addRule(new Rule("counter<5 and SVNR>43", new SetValueExpression("Background", "style")));
+        ruleEngine.addRule(new Rule("counter<5", new SetValueExpression("Background", "n.matches('')")));
         return ruleEngine;
     }
 
