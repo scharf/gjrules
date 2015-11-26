@@ -11,7 +11,6 @@ enum OP {
 }
 
 class ExprInfixOperator extends AbstractBinaryExpr {
-    /** see CQLConstants */
     private final OP operation;
 
     ExprInfixOperator(IToken token, IExpression left, IExpression right) {
@@ -59,7 +58,9 @@ class ExprInfixOperator extends AbstractBinaryExpr {
         Object leftObject = left.eval();
         Object rightObject = right.eval();
         if (operation == OP.PLUS) {
-
+            if (leftObject instanceof String || rightObject instanceof String) {
+                return "" + leftObject + rightObject;
+            }
         }
         if (!(leftObject instanceof Number)) {
             throw left
@@ -112,7 +113,7 @@ class ExprInfixOperator extends AbstractBinaryExpr {
             result = left | right;
             break;
         default:
-            throw newExpressionException( "unsupported operand!");
+            throw newExpressionException("unsupported operand!");
         }
         // System.out.println(this+"="+result);
         return new Long(result);
@@ -137,7 +138,7 @@ class ExprInfixOperator extends AbstractBinaryExpr {
             result = left % right;
             break;
         default:
-            throw newExpressionException( "unsupported operand!");
+            throw newExpressionException("unsupported operand!");
         }
         // System.out.println(this+"="+result);
         return new Double(result);
@@ -146,7 +147,7 @@ class ExprInfixOperator extends AbstractBinaryExpr {
     @Override
     public void setStore(StateStore store) throws ExpressionException {
         if (operation == OP.UNKNOWN) {
-            throw newExpressionException( "Unknown operator: " + token.getString());
+            throw newExpressionException("Unknown operator: " + token.getString());
         }
         super.setStore(store);
     }
