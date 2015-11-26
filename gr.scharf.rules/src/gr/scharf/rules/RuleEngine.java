@@ -22,8 +22,6 @@ public class RuleEngine {
                 boolean matched = rule.execute();
                 if (!matched) {
                     nextRules.add(rule);
-                } else {
-                    System.out.println(rule);
                 }
             }
 
@@ -39,9 +37,7 @@ public class RuleEngine {
         for (int i = 0; i < 5; i++) {
             store.clearDirtyState();
             for (Rule rule : rules) {
-                if (rule.execute()) {
-                    System.out.println(rule);
-                }
+                rule.execute();
             }
 
             if (!store.isDirtyState()) {

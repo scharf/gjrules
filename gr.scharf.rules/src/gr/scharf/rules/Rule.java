@@ -30,6 +30,8 @@ public class Rule {
      */
     public boolean execute() throws ExpressionException {
         if (condition.test()) {
+            System.out.println(this);
+
             action.run();
             return true;
         }

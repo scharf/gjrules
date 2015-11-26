@@ -41,6 +41,7 @@ public class ParserMain {
         parse("3.14");
         parse("null == null");
         parse("a+b");
+        parse("-1*a+b");
     }
 
     private static void parse(String expression) {
