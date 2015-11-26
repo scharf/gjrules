@@ -85,7 +85,7 @@ class ExprCompare extends AbstractBinaryExpr {
         try {
             cmp = compareTo(leftObj, rightObj);
         } catch (Throwable t) {
-            throw newExpressionException( "" + t);
+            throw newExpressionException("" + t);
         }
         switch (operation) {
         case LT:
@@ -97,7 +97,7 @@ class ExprCompare extends AbstractBinaryExpr {
         case GT:
             return cmp > 0;
         default:
-            throw newExpressionException( "operator '" + token.getString() + "' not supported");
+            throw newExpressionException("operator '" + token.getString() + "' not supported");
         }
     }
 
@@ -109,7 +109,7 @@ class ExprCompare extends AbstractBinaryExpr {
     @Override
     public void setStore(StateStore store) throws ExpressionException {
         if (operation == COMP_OP.UNKNOWN) {
-            throw newExpressionException( "Unknown operator: " + token.getString());
+            throw newExpressionException("Unknown operator: " + token.getString());
         }
         super.setStore(store);
     }

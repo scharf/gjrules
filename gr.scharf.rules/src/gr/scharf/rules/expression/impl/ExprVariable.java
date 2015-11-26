@@ -19,7 +19,7 @@ public class ExprVariable extends AbstractExpr {
         try {
             return store.getValue(name);
         } catch (Exception e) {
-            throw newExpressionException( e.getLocalizedMessage());
+            throw newExpressionException(e.getLocalizedMessage());
         }
     }
 
@@ -34,7 +34,7 @@ public class ExprVariable extends AbstractExpr {
         try {
             store.getValue(name);
         } catch (Exception e) {
-            throw newExpressionException( e.getLocalizedMessage());
+            throw newExpressionException(e.getLocalizedMessage());
         }
     }
 }

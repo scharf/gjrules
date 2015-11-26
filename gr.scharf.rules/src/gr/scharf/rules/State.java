@@ -1,22 +1,22 @@
 package gr.scharf.rules;
 
 public class State {
-	Object value;
+    Object value;
 
-	public State(Object value) {
-		this.value = value;
-	}
+    public State(Object value) {
+        this.value = value;
+    }
 
-	public Object get() {
-		return value;
-	}
+    public Object get() {
+        return value;
+    }
 
-	public void set(Object value) {
-		this.value = value;
-	}
+    public void set(Object value) {
+        this.value = value;
+    }
 
-	@Override
-	public String toString() {
-		return "" + value;
-	}
+    @Override
+    public String toString() {
+        return "" + value;
+    }
 }
