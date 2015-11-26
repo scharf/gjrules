@@ -55,6 +55,10 @@ public class RuleEngine {
         store.define(name, state);
     }
 
+    public StateStore getStore() {
+        return store;
+    }
+
     @Override
     public String toString() {
         StringBuilder b = new StringBuilder();

@@ -6,13 +6,18 @@ import gr.scharf.rules.expression.ExpressionParser;
 import gr.scharf.rules.expression.IExpression;
 
 public class SetValueExpression extends AbstractStoreAction {
+
     String      name;
     IExpression expression;
 
-    public SetValueExpression(String name, String expression) throws ExpressionException {
+    public SetValueExpression(String name, IExpression expression) {
         super();
         this.name = name;
-        this.expression = new ExpressionParser().parseVQL(expression);
+        this.expression = expression;
+    }
+
+    public SetValueExpression(String name, String expression) throws ExpressionException {
+        this(name, new ExpressionParser().parseExpression(expression));
     }
 
     @Override

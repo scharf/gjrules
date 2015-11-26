@@ -17,6 +17,10 @@ public class RuleMain {
         System.out.println("");
         System.out.println("Run each rule at most one time:");
         ruleEngine.runOnce();
+
+        ruleEngine = new RuleEngine();
+        // new ExpressionParser().parseRules(ruleEngine, "define x = 2;
+        // x>2:x=3;");
     }
 
     private static RuleEngine createStore() throws ExpressionException {

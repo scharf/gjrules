@@ -48,7 +48,7 @@ public class ParserMain {
 
         ExpressionParser parser = new ExpressionParser();
         try {
-            IExpression expr = parser.parseVQL(expression);
+            IExpression expr = parser.parseExpression(expression);
             expr.setStore(store);
             System.out.println(expr + " -> " + expr.eval() + "");
 

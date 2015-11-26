@@ -15,7 +15,7 @@ public class Rule {
     }
 
     public Rule(String condition, IAction action) throws ExpressionException {
-        this.condition = new ExpressionParser().parseVQL(condition);
+        this.condition = new ExpressionParser().parseExpression(condition);
         this.action = action;
     }
 
