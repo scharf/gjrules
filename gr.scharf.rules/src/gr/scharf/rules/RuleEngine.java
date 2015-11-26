@@ -17,19 +17,15 @@ public class RuleEngine {
         List<Rule> currentRules = new ArrayList<Rule>(rules);
         List<Rule> nextRules = new ArrayList<Rule>();
         for (int i = 0; i < 5; i++) {
-            boolean wasDirty = false;
             store.clearDirtyState();
             for (Rule rule : currentRules) {
-                rule.execute();
-                if (store.isDirtyState()) {
-                    store.clearDirtyState();
-                    wasDirty = true;
-                } else {
+                boolean matched = rule.execute();
+                if (!matched) {
                     nextRules.add(rule);
                 }
             }
 
-            if (!wasDirty) {
+            if (!store.isDirtyState()) {
                 break;
             }
             currentRules = nextRules;

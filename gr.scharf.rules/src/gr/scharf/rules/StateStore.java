@@ -16,6 +16,7 @@ public class StateStore {
 
         if (!value.equals(state.get())) {
             state.set(value);
+            System.out.println("...." + this);
             dirtyState = true;
         }
     }
