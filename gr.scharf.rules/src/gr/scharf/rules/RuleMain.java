@@ -2,25 +2,34 @@ package gr.scharf.rules;
 
 import gr.scharf.rules.actions.SetValueExpression;
 import gr.scharf.rules.expression.ExpressionException;
+import gr.scharf.rules.expression.ExpressionParser;
 
 public class RuleMain {
 
     public static void main(String[] args) throws ExpressionException {
         RuleEngine ruleEngine = createStore();
-        System.out.println(ruleEngine);
         System.out.println("");
         System.out.println("Run");
+        System.out.println(ruleEngine.getStore());
+        System.out.println("-----------------------------------------------------------------------------");
         ruleEngine.run();
+        System.out.println("-----------------------------------------------------------------------------");
+        System.out.println(ruleEngine.getStore());
 
         ruleEngine = createStore();
-        System.out.println("");
+        System.out.println("-----------------------------------------------------------------------------");
         System.out.println("");
         System.out.println("Run each rule at most one time:");
+        System.out.println(ruleEngine.getStore());
+        System.out.println("-----------------------------------------------------------------------------");
         ruleEngine.runOnce();
+        System.out.println("-----------------------------------------------------------------------------");
+        System.out.println(ruleEngine.getStore());
 
+        System.out.println("-----------------------------------------------------------------------------");
         ruleEngine = new RuleEngine();
-        // new ExpressionParser().parseRules(ruleEngine, "define x = 2;
-        // x>2:x=3;");
+        new ExpressionParser().parseRules(ruleEngine, "define x = 2; x>2: set x 3;");
+        System.out.println(ruleEngine);
     }
 
     private static RuleEngine createStore() throws ExpressionException {

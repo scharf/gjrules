@@ -10,6 +10,7 @@ import gr.scharf.rules.RuleEngine;
 import gr.scharf.rules.State;
 import gr.scharf.rules.actions.IAction;
 import gr.scharf.rules.actions.SetValueExpression;
+import gr.scharf.rules.actions.StatementAction;
 import gr.scharf.rules.expression.impl.ExpressionBuilder;
 
 public class ExpressionParser {
@@ -25,7 +26,13 @@ public class ExpressionParser {
     public void parseRules(RuleEngine engine, String rules) throws ExpressionException {
         this.engine = engine;
         lexer = new Lexer(rules);
-        token = lexer.nextToken();
+        nextToken();
+        while (!token.getType().isEOF()) {
+            parseDefineOrRule();
+        }
+    }
+
+    private void parseDefineOrRule() throws ExpressionException {
         switch (token.getString()) {
         case "define":
             nextToken();
@@ -39,23 +46,37 @@ public class ExpressionParser {
 
     private void parseRule() throws ParseException, ExpressionException {
         IExpression condition = parseExpression();
-        lexer.useCurrentTokenAsNextToken();
-        nextToken();
-        if (":".equals(token.getString())) {
-            throw new ParseException(token, ": expected");
+        if (!(":".equals(token.getString()))) {
+            throw new ParseException(token, ": expected got " + token);
         }
         nextToken();
-        String name = parseIdentifier();
-        IExpression expr = parseExpression();
-        IAction action = new SetValueExpression(name, expr);
-        engine.addRule(new Rule(condition, action));
+        if ("set".equals(token.getString())) {
+            nextToken();
+            String name = parseIdentifier();
+            IExpression expr = parseExpression();
+            IAction action = new SetValueExpression(name, expr);
+            engine.addRule(new Rule(condition, action));
+        } else {
+            IExpression expr = parseExpression();
+            IAction action = new StatementAction(expr);
+            engine.addRule(new Rule(condition, action));
+
+        }
+        if (!(";".equals(token.getString()))) {
+            throw new ParseException(token, "; expected");
+
+        }
+        nextToken();
     }
 
     private IExpression parseExpression() throws ExpressionException {
         ExprParser<IExpression, ExpressionException> exprParser = new ExprParser<IExpression, ExpressionException>(
                 new ExpressionBuilder(),
-                true);
-        return exprParser.parse(lexer);
+                false);
+        IExpression expr = exprParser.parse(lexer);
+        lexer.useCurrentTokenAsNextToken();
+        nextToken();
+        return expr;
     }
 
     IAction parseAction() {
@@ -64,32 +85,36 @@ public class ExpressionParser {
     }
 
     private void nextToken() {
-        token = lexer.nextToken();
+        do {
+            token = lexer.nextToken();
+            // skip the whitespace
+        } while (token.getType().isWhitespaceOrComment());
     }
 
     private void parseDefine() throws ExpressionException {
         String varName = parseIdentifier();
-        nextToken();
         if (!"=".equals(token.getString())) {
-            throw new ParseException(token, "Identifier expected");
+            throw new ParseException(token, "'=' expected");
 
         }
         nextToken();
         IExpression expr = parseExpression();
         expr.setStore(engine.getStore());
         engine.defineState(varName, new State(expr.eval()));
-        nextToken();
-        if (";".equals(token.getString())) {
+        if (!(";".equals(token.getString()))) {
             throw new ParseException(token, "; expected");
 
         }
+        nextToken();
     }
 
     private String parseIdentifier() {
         if (!token.getType().isIdentifier()) {
             throw new ParseException(token, "Identifier expected");
         }
-        return token.getString();
+        String id = token.getString();
+        nextToken();
+        return id;
     }
 
     public IExpression parseExpression(String expression) throws ExpressionException {
