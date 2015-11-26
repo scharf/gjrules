@@ -43,6 +43,7 @@ public class ParserMain {
         parse("a+b");
         parse("-1*a+b");
         parse("'xx'+'bb'");
+        parse("-a");
     }
 
     private static void parse(String expression) {

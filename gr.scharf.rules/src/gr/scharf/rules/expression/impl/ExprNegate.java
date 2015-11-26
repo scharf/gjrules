@@ -5,18 +5,21 @@ import gr.scharf.rules.StateStore;
 import gr.scharf.rules.expression.ExpressionException;
 import gr.scharf.rules.expression.IExpression;
 
-public class ExprNegate extends AbstractExpr {
-
-    private IExpression inner;
+public class ExprNegate extends AbstractUnaryExpr {
 
     public ExprNegate(IToken token, IExpression inner) {
-        super(token);
-        this.inner = inner;
+        super(token, inner);
     }
 
     @Override
     public Object eval() throws ExpressionException {
-        return !toBoolean(inner.eval());
+        Object number = inner.eval();
+        if (number instanceof Double || number instanceof Float) {
+            return new Double(-((Number) number).doubleValue());
+        } else if (number instanceof Number) {
+            return new Long(-((Number) number).longValue());
+        }
+        throw newExpressionException("is not a number: " + number);
     }
 
     @Override
@@ -27,6 +30,6 @@ public class ExprNegate extends AbstractExpr {
 
     @Override
     public String toString() {
-        return "(- " + inner + ")";
+        return "(-" + inner + ")";
     }
 }

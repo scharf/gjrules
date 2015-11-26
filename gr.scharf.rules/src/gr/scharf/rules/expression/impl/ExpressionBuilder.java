@@ -22,8 +22,12 @@ public class ExpressionBuilder extends AbstractExpressionBuilder<IExpression, Ex
             return new ExprOr(token, (IExpression) args[0], (IExpression) args[1]);
         case "__and__":
             return new ExprAnd(token, (IExpression) args[0], (IExpression) args[1]);
-        case "__+__":
         case "__-__":
+            if (args.length == 1) {
+                return new ExprNegate(token, (IExpression) args[0]);
+            }
+            // NO break;
+        case "__+__":
         case "__*__":
         case "__/__":
         case "__%__":
