@@ -1,6 +1,7 @@
 package gr.scharf.rules;
 
 import gr.scharf.rules.actions.SetValueAction;
+import gr.scharf.rules.actions.SetValueExpression;
 import gr.scharf.rules.expression.ExpressionException;
 
 public class RuleMain {
@@ -23,6 +24,7 @@ public class RuleMain {
         ruleEngine.defineState("SVNR", new State(42));
         ruleEngine.defineState("Background", new State("blue"));
         ruleEngine.defineState("style", new State("male"));
+        ruleEngine.defineState("counter", new State(1));
         ruleEngine.addRule(new Rule("SVNR==44", new SetValueAction("SVNR", 42)));
         ruleEngine.addRule(new Rule("SVNR==43", new SetValueAction("SVNR", 44)));
         ruleEngine.addRule(new Rule("SVNR==42", new SetValueAction("Background", "red")));
@@ -30,7 +32,7 @@ public class RuleMain {
         ruleEngine.addRule(new Rule("SVNR==42", new SetValueAction("SVNR", 43)));
         ruleEngine.addRule(new Rule("SVNR>=44", new SetValueAction("SVNR", 100)));
         ruleEngine.addRule(new Rule("Background == 'red'", new SetValueAction("style", "female")));
-        ruleEngine.addRule(new Rule("Background == 'blue'", new SetValueAction("style", "male")));
+        ruleEngine.addRule(new Rule("counter<5 and SVNR>43", new SetValueExpression("counter", "counter+1")));
         return ruleEngine;
     }
 

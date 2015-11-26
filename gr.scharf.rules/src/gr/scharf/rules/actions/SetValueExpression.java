@@ -16,12 +16,13 @@ public class SetValueExpression extends AbstractStoreAction {
     }
 
     @Override
-    public void run() {
-        store.setValue(name, expression);
+    public void run() throws ExpressionException {
+        store.setValue(name, expression.eval());
     }
 
     @Override
     public void setStore(StateStore store) throws ExpressionException {
         expression.setStore(store);
+        super.setStore(store);
     }
 }
