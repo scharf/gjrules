@@ -25,4 +25,9 @@ public class SetValueExpression extends AbstractStoreAction {
         expression.setStore(store);
         super.setStore(store);
     }
+
+    @Override
+    public String toString() {
+        return name + " = " + expression + ";";
+    }
 }

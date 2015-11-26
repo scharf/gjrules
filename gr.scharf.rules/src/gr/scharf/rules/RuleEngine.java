@@ -22,6 +22,8 @@ public class RuleEngine {
                 boolean matched = rule.execute();
                 if (!matched) {
                     nextRules.add(rule);
+                } else {
+                    System.out.println(rule);
                 }
             }
 
@@ -37,7 +39,9 @@ public class RuleEngine {
         for (int i = 0; i < 5; i++) {
             store.clearDirtyState();
             for (Rule rule : rules) {
-                rule.execute();
+                if (rule.execute()) {
+                    System.out.println(rule);
+                }
             }
 
             if (!store.isDirtyState()) {
@@ -53,5 +57,15 @@ public class RuleEngine {
 
     public void defineState(String name, State state) {
         store.define(name, state);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder b = new StringBuilder();
+        for (Rule rule : rules) {
+            b.append(rule.toString());
+            b.append("\n");
+        }
+        return b.toString();
     }
 }

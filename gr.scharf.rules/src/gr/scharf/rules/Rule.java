@@ -35,4 +35,9 @@ public class Rule {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return condition.toString() + " -> " + action.toString();
+    }
 }

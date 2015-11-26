@@ -8,6 +8,7 @@ public class StateStore {
     private boolean            dirtyState = false;
 
     public void define(String name, State state) {
+        System.out.println("define name = " + state);
         states.put(name, state);
     }
 
@@ -16,7 +17,7 @@ public class StateStore {
 
         if (!value.equals(state.get())) {
             state.set(value);
-            System.out.println("...." + this);
+            System.out.println("    " + name + " = " + value);
             dirtyState = true;
         }
     }
