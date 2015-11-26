@@ -43,6 +43,8 @@ public class ExpressionBuilder extends AbstractExpressionBuilder<IExpression, Ex
             return new ExprCompare(token, (IExpression) args[0], (IExpression) args[1]);
         case "matches":
             return new ExprMatches(token, self, (IExpression) args[0]);
+        case "print":
+            return new ExprPrint(token, (IExpression) args[0]);
         }
         throw new ExpressionException(token, function);
     }

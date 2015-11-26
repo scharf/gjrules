@@ -28,8 +28,10 @@ public class RuleMain {
 
         System.out.println("-----------------------------------------------------------------------------");
         ruleEngine = new RuleEngine();
-        new ExpressionParser().parseRules(ruleEngine, "define x = 2; x>2: set x 3;");
-        System.out.println(ruleEngine);
+        new ExpressionParser().parseRules(ruleEngine, "define x = 2; x<3: set x 3; x<10: print(x*2);");
+        System.out.println(ruleEngine.getStore());
+        System.out.println("-----------------------------------------------------------------------------");
+        ruleEngine.runOnce();
     }
 
     private static RuleEngine createStore() throws ExpressionException {
